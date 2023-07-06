@@ -5,5 +5,5 @@ from django.http import HttpResponse
 
 def hello_world(request):
     # return HttpResponse('안녕하세요')
-    return render(request, 'base.html')
+    return render(request, 'accountapp/hello_world.html')
 
