@@ -1,13 +1,14 @@
-from symbol import subscript
-from typing import Any, Optional
+from typing import Any
 from django.contrib.auth.decorators import login_required
+from django.db.models.query import QuerySet
 from django.utils.decorators import method_decorator
 from django.shortcuts import get_object_or_404, render
 from django.urls import reverse
-from django.views.generic import RedirectView
+from django.views.generic import RedirectView, ListView
 
 from projectapp.models import Project
 from subscribeapp.models import Subscription
+from articleapp.models import Article
 # Create your views here.
 
 @method_decorator(login_required, 'get')
@@ -29,3 +30,14 @@ class SubscriptionView(RedirectView):
 
         return super(SubscriptionView, self).get(request, *args, **kwargs)
     
+@method_decorator(login_required, 'get')
+class SubsriptionListView(ListView):
+    model = Article
+    context_object_name = 'article_list'
+    template_name = 'subscribeapp/list.html'
+    paginate_by = 5
+
+    def get_queryset(self):
+        projects = Subscription.objects.filter(user=self.request.user).values_list('project')
+        article_list = Article.objects.filter(project__in=projects)
+        return article_list

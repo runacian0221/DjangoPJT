@@ -8,7 +8,10 @@
         </a>
         <a href="{% url 'projectapp:list' %}" class="pragmatic_header_nav">
             <span>Projects</span>
-        </a>        
+        </a>
+        <a href="{% url 'subscribeapp:list' %}" class="pragmatic_header_nav">
+            <span>subscription</span>
+        </a>               
         {% if not user.is_authenticated %}
         <!-- next인자에 request.path 인자를 넘겨 로그인 후 원래 있던 페이지로 돌아가게 한다  -->
         <a href="{% url 'accountapp:login' %}?next={{ request.path }}" class="pragmatic_header_nav">
