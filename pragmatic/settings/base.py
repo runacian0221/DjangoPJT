@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 
 import os, environ
+from django.contrib.messages import constants as messages
+
 from django.urls import reverse_lazy
 
 
@@ -48,6 +50,11 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
+
+# Django 메시지 ERROR -> BOOTSTRAP의 danger로 수정
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger',
+}
 
 ROOT_URLCONF = 'pragmatic.urls'
 
