@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div style="text-align: center; max-width: 500px; margin: 4rem auto">
+    <h4>Delete Project : {{ object.title }}</h4>
+    <form action="{% url 'projectapp:delete' pk=object.pk %}" method="post">
+        {% csrf_token %}
+        <input type="submit" class="btn btn-danger" value="Delete">
+        <a href="{% url 'projectapp:list' %}" class="btn btn-secondary">Cancel</a>
+    </form>
+</div>
+
+{% endblock %}
