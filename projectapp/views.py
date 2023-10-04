@@ -1,11 +1,12 @@
 from typing import Any, Dict
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
-
 from django.urls import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
 from django.views.generic.list import MultipleObjectMixin
+from rest_framework import viewsets
 
+from .serializers import ProjectSerializer
 from django.views.generic import CreateView, DetailView, ListView, DeleteView
 from articleapp.models import Article
 from projectapp.forms import ProjectCreationForm
@@ -58,3 +59,7 @@ class ProjectDeleteView(DeleteView):
     model = Project
     template_name = 'projectapp/delete.html'
     success_url = reverse_lazy('projectapp:list')
+
+class ProjectViewSet(viewsets.ModelViewSet):
+    queryset = Project.objects.all()
+    serializer_class = ProjectSerializer

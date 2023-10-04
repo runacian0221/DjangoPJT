@@ -2,7 +2,6 @@ from django.urls import path
 
 from subscribeapp.views import SubscriptionView, SubsriptionListView
 
-
 app_name = 'subscribeapp'
 
 urlpatterns = [

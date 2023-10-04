@@ -7,7 +7,9 @@ from django.views.generic import RedirectView
 from django.utils.decorators import method_decorator
 from django.contrib import messages
 from django.db import transaction
+from rest_framework import viewsets
 
+from .serializers import LikeRecordSerializer
 from articleapp.models import Article
 from likeapp.models import LikeRecord
 
@@ -43,3 +45,7 @@ class LikeArticleView(RedirectView):
         
 
         return super(LikeArticleView, self).get(self.request, *args, **kwargs)
+
+class LikeRecordViewSet(viewsets.ModelViewSet):
+    queryset = LikeRecord.objects.all()
+    serializer_class = LikeRecordSerializer

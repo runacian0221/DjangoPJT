@@ -6,7 +6,9 @@ from articleapp.forms import ArticleCreationForm
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import FormMixin
+from rest_framework import viewsets
 
+from .serializers import ArticleSerializer
 from articleapp.models import Article
 from commentapp.forms import CommentCreationForm
 # Create your views here.
@@ -58,3 +60,7 @@ class ArticleListView(ListView):
     context_object_name = 'article_list'
     template_name = 'articleapp/list.html'
     paginate_by = 5
+
+class ArticleViewSet(viewsets.ModelViewSet):
+    queryset = Article.objects.all()
+    serializer_class = ArticleSerializer

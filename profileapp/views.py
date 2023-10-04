@@ -2,7 +2,9 @@ from django.forms.models import BaseModelForm
 from django.http import HttpResponse
 from django.urls import reverse, reverse_lazy
 from django.utils.decorators import method_decorator
+from rest_framework import viewsets
 
+from .serializers import ProfileSerializer
 from profileapp.decorators import profile_ownership_required
 from profileapp.forms import ProfileCreationForm
 from profileapp.models import Profile
@@ -40,3 +42,7 @@ class ProfileUpdateView(UpdateView):
         # model의 profile 클래스의 user의 pk를 찾아서 detail에 넘겨줌
     def get_success_url(self):
         return reverse('accountapp:detail', kwargs={'pk':self.object.user.pk})
+    
+class ProfileViewSet(viewsets.ModelViewSet):
+    queryset = Profile.objects.all()
+    serializer_class = ProfileSerializer

@@ -3,8 +3,10 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.urls import reverse
 from django.utils.decorators import method_decorator
-
 from django.views.generic import CreateView, DeleteView
+from rest_framework import viewsets
+
+from .serializers import CommentSerializer
 from commentapp.decorators import comment_ownership_required
 from commentapp.forms import CommentCreationForm
 from commentapp.models import Comment
@@ -36,3 +38,7 @@ class CommentDeleteView(DeleteView):
 
     def get_success_url(self):
         return reverse('articleapp:detail', kwargs={'pk':self.object.article.pk} )
+
+class CommentViewSet(viewsets.ModelViewSet):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer

@@ -18,8 +18,24 @@ from django.conf import settings
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls.static import static
+from rest_framework.routers import DefaultRouter
 
-from articleapp.views import ArticleListView
+from articleapp.views import ArticleListView, ArticleViewSet
+from commentapp.views import CommentViewSet
+from likeapp.views import LikeRecordViewSet
+from profileapp.views import ProfileViewSet
+from projectapp.views import ProjectViewSet
+from subscribeapp.views import SubscriptionViewSet
+
+router = DefaultRouter()
+
+router.register(r'articles', ArticleViewSet)
+router.register(r'comments', CommentViewSet)
+router.register(r'likes', LikeRecordViewSet)
+router.register(r'profiles', ProfileViewSet)
+router.register(r'projects', ProjectViewSet)
+router.register(r'subscriptions', SubscriptionViewSet)
+
 
 urlpatterns = [
     path('', ArticleListView.as_view(), name='home'),
@@ -32,4 +48,5 @@ urlpatterns = [
     path('projects/', include('projectapp.urls')),
     path('subscribe/', include('subscribeapp.urls')),
     path('likes/', include('likeapp.urls')),
+    path('api/', include(router.urls)),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
